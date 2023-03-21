@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import productRouter from "./controller/product-controller";
+import productRouter from "./controller/product-controller.js";
 
 const app = express();
 const port = 4000;
