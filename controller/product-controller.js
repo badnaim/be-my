@@ -8,15 +8,16 @@ productRouter.post(
   "/addproduct",
   multerHandler.single("file"),
   async (req, res) => {
+    console.log("details", req.body.details);
     // console.log(req.file[0].originalname);
-    console.log(req.file.path);
+    // console.log(req.file.path);
     const { secure_url } = await uploadCloud.uploader.upload(req.file.path, {
       folder: "product",
     });
     // console.log("resFromCloud: ", resFromCloud);
     const newProduct = {
       image: secure_url,
-      // ...JSON.parse(req.body.details)
+      // ...JSON.parse(req.body.details),
     };
     console.log("new Product: ", newProduct);
   }
