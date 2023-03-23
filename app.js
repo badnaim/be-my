@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import productRouter from "./controller/product-controller.js";
+import db from "./config/mongoose-config.js";
 
 const app = express();
 const port = 4000;

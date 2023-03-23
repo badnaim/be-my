@@ -1,6 +1,8 @@
-import express from "express";
+import express, { Router } from "express";
 import multerHandler from "../util/multer-handler.js";
 import uploadCloud from "../config/cloudinary-config.js";
+import ProductSch from "../model/product.js";
+import { addProduct } from "../service/product-service.js";
 
 const productRouter = express.Router();
 
@@ -8,23 +10,27 @@ productRouter.post(
   "/addproduct",
   multerHandler.single("file"),
   async (req, res) => {
-    // console.log(req.file[0].originalname);
-    console.log(req.file.path);
+    console.log(req.body.data);
+
     const { secure_url } = await uploadCloud.uploader.upload(req.file.path, {
       folder: "product",
     });
-    // console.log("resFromCloud: ", resFromCloud);
+
     const newProduct = {
       image: secure_url,
-      // ...JSON.parse(req.body.details)
+      ...JSON.parse(req.body.data),
     };
+
     console.log("new Product: ", newProduct);
+
+    let result = await addProduct(newProduct);
+
+    try {
+      res.status(200).send({ data: result });
+    } catch (error) {
+      res.status(403).send({ error: "didnt work" });
+    }
   }
 );
-
-// const newProduct = {
-//   image: secure_url,
-//   ...JSON.parse(req.body.details)
-// };
 
 export default productRouter;
