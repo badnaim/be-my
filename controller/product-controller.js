@@ -1,10 +1,20 @@
-import express, { Router } from "express";
+import express, { response, Router } from "express";
 import multerHandler from "../util/multer-handler.js";
 import uploadCloud from "../config/cloudinary-config.js";
 import ProductSch from "../model/product.js";
 import { addProduct } from "../service/product-service.js";
 
 const productRouter = express.Router();
+
+// productRouter.get("/", async (req, res) => {
+//   console.log("get request");
+//   const getProduct = await ProductSch.find({});
+//   try {
+//     response.status(200).send(getProduct);
+//   } catch (error) {
+//     response.status(404).send(error);
+//   }
+// });
 
 productRouter.post(
   "/addproduct",
