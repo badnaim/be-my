@@ -6,14 +6,14 @@ import { addProduct } from "../service/product-service.js";
 
 const productRouter = express.Router();
 
-productRouter.get("/get", async (req, res) => {
-  console.log("get request");
+productRouter.get("/getProducts", async (req, res) => {
+  console.log("get product request");
   const getProduct = await ProductSch.find({});
   try {
-    respond.status(200).send(getProduct);
-    console.log(getProduct);
+    res.send({ status: "ok", body: getProduct });
+    // console.log(getProduct);
   } catch (error) {
-    respond.status(404).send(error, "get");
+    console.log(error);
   }
 });
 
