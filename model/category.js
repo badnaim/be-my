@@ -6,10 +6,10 @@ const categorySchema = new mongoose.Schema(
     image: String,
   },
   {
-    collection: "category",
+    collection: "categories",
   }
 );
 
-const CategorySch = mongoose.model("category", categorySchema, "category");
+const CategorySch = mongoose.model("category", categorySchema, "categories");
 
 export default CategorySch;
