@@ -1,11 +1,48 @@
 import express from "express";
-import { getCategory, addCategory } from "../service/category-service.js";
+import uploadCloud from "../config/cloudinary-config.js";
+import { addCategory } from "../service/category-service.js";
 import multerHandler from "../util/multer-handler.js";
-// import imageUplo
+import CategorySch from "../model/category.js";
 
 const categoryRouter = express.Router();
 
-categoryRouter.get("/", async (req, res) => {
+categoryRouter.get("/getcategory", async (req, res) => {
   console.log("category huselt orj irlee");
-  const result = await getC;
+  const getCategory = await CategorySch.find({});
+  try {
+    res.send({ status: "ok", body: getCategory });
+  } catch (error) {
+    console.log(error);
+  }
 });
+
+categoryRouter.post(
+  "/addCategory",
+  multerHandler.single("category image"),
+  async (req, res) => {
+    console.log(req.body.data);
+
+    const { secure_category_url } = await uploadCloud.uploader.upload(
+      req.file.path,
+      {
+        folder: "categories",
+      }
+    );
+    const newCategory = {
+      image: secure_category_url,
+      ...JSON.parse(req.body.data),
+    };
+
+    console.log("new product", newProduct);
+
+    let result = await addCategory(newCategory);
+
+    try {
+      res.status(200).send({ data: result });
+    } catch (error) {
+      res.status(404).send({ error: "add category problem" });
+    }
+  }
+);
+
+export default categoryRouter;

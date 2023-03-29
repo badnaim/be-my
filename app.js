@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import productRouter from "./controller/product-controller.js";
+import categoryRouter from "./controller/category-controller.js";
 import db from "./config/mongoose-config.js";
 import * as dotenv from "dotenv";
 
@@ -12,6 +13,7 @@ const port = 4000;
 app.use(cors());
 app.use(express.json());
 app.use(productRouter);
+app.use(categoryRouter);
 console.log("cloud", process.env.API_SECRET);
 
 app.listen(port, () => {
