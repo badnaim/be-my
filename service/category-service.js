@@ -7,8 +7,8 @@ export const getCategory = async () => {
 };
 
 export async function addCategory(newCategory) {
-  console.log("newCateg", newCateg);
   const newCateg = new CategorySch(newCategory);
+  console.log("newCateg", newCateg);
   const result = await newCateg.save();
   console.log("result", result);
   return result;

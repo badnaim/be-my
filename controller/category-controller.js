@@ -1,20 +1,31 @@
 import express, { response, Router } from "express";
 import uploadCloud from "../config/cloudinary-config.js";
+import CategorySch from "../model/category.js";
 import { addCategory } from "../service/category-service.js";
 // import CategorySch from "../model/category.js";
 import multerHandler from "../util/multer-handler.js";
 
 const categoryRouter = express.Router();
 
-// categoryRouter.get("/getcategory", async (req, res) => {
-//   console.log("category huselt orj irlee");
-//   const getCategory = await CategorySch.find({});
-//   try {
-//     res.send({ status: "ok", body: getCategory });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
+categoryRouter.get("/getcategories", async (req, res) => {
+  console.log("category huselt orj irlee");
+  const getCategory = await CategorySch.find({});
+  try {
+    res.send({ status: "ok", body: getCategory });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+categoryRouter.get("/getCategory", async (req, res) => {
+  console.log("category get huselt orj irlee mf");
+  const getCategory = await CategorySch.find({});
+  try {
+    res.send({ status: "ok", body: getCategory });
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 categoryRouter.post(
   "/addCategory",
