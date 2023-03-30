@@ -22,6 +22,7 @@ productRouter.post(
   multerHandler.single("file"),
   async (req, res) => {
     console.log(req.body.data);
+    console.log(req.file.path);
 
     const { secure_url } = await uploadCloud.uploader.upload(req.file.path, {
       folder: "product",

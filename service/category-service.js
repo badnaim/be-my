@@ -6,10 +6,10 @@ import CategorySch from "../model/category.js";
 //   });
 // };
 
-export const addCategory = async (newCategory) => {
+export function addCategory(newCategory) {
   // console.log(newCateg);
   const newCateg = new CategorySch(newCategory);
-  const result = await newCateg.save();
+  const result = newCateg.save();
   console.log(result);
   return result;
-};
+}

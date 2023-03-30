@@ -1,26 +1,29 @@
-import express from "express";
+import express, { response, Router } from "express";
 import uploadCloud from "../config/cloudinary-config.js";
 import { addCategory } from "../service/category-service.js";
-import multerHandler from "../util/multer-handler.js";
+import upload from "../util/multer-handler.js";
 import CategorySch from "../model/category.js";
+import multerHandler from "../util/multer-handler.js";
 
 const categoryRouter = express.Router();
 
-categoryRouter.get("/getcategory", async (req, res) => {
-  console.log("category huselt orj irlee");
-  const getCategory = await CategorySch.find({});
-  try {
-    res.send({ status: "ok", body: getCategory });
-  } catch (error) {
-    console.log(error);
-  }
-});
+// categoryRouter.get("/getcategory", async (req, res) => {
+//   console.log("category huselt orj irlee");
+//   const getCategory = await CategorySch.find({});
+//   try {
+//     res.send({ status: "ok", body: getCategory });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
 categoryRouter.post(
   "/addCategory",
-  multerHandler.single("category image"),
+  multerHandler.single("file"),
   async (req, res) => {
-    console.log(req.body.data);
+    // console.log(req.body.name);
+    // console.log(req.file.originalname);
+    // console.log("file path", req.file.path);
 
     const { secure_category_url } = await uploadCloud.uploader.upload(
       req.file.path,
@@ -30,13 +33,10 @@ categoryRouter.post(
     );
     const newCategory = {
       image: secure_category_url,
-      ...JSON.parse(req.body.data),
+      ...JSON.parse(req.body.name),
     };
-
-    console.log("new product", newProduct);
-
+    console.log("new cagtegory", newCategory);
     let result = await addCategory(newCategory);
-
     try {
       res.status(200).send({ data: result });
     } catch (error) {
