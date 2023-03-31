@@ -32,7 +32,7 @@ categoryRouter.post(
   multerHandler.single("file"),
   async (req, res) => {
     console.log(req.body.name);
-    console.log(req.file.originalname);
+    // console.log(req.file.originalname);
     // console.log("file path", req.file.path);
     // console.log("file path", req.file.path);
 
